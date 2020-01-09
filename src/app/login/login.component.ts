@@ -83,3 +83,18 @@ export class LoginComponent implements OnInit {
     }
   }
 }
+
+/**
+ * TODO:
+ * 
+ * Login failed on SSO, dont send message if login failed
+ * login field msg ui
+ * button hover color
+ * form validation
+ * 
+ * Login success notification before posting message.
+ * 
+ * 
+ * FUTURE FEATURE
+ * SIGNUP / FORGOT PASSWORD
+ */
