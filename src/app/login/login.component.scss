@@ -1,3 +1,4 @@
+$test: red;
 .container{
     height: 100vh;
     display: flex;
@@ -49,6 +50,10 @@
             height: 4rem;
             width: 100%;
             padding: 1rem;
+
+            &.invalid{
+                background: rgba(255, 0, 0, 0.15);
+            }
         }
 
         button{
@@ -59,6 +64,11 @@
             padding: 1.25rem;
             border-radius: 25px;
             cursor: pointer;
+            transition: all .25s ease-in;
+
+            &:hover{
+                opacity: 0.8;
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import { LoginModule } from './login/login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { JkWaitModule } from 'jk-wait';
+import { JkAlertModule } from 'jk-alert';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { JkWaitModule } from 'jk-wait';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
-    JkWaitModule
+    JkWaitModule,
+    JkAlertModule
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { JkAlertService } from 'jk-alert';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  formSubmitted = false;
   application: {
     name: string,
     url: string,
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private jkAlert: JkAlertService
   ) { }
 
   ngOnInit() {
@@ -32,31 +35,52 @@ export class LoginComponent implements OnInit {
 
     if (!this.opener) {
       this.directAccess = true;
-      alert('Cannot access Login Page direcly');
+      this.jkAlert.error('Cannot access Login Page direcly');
       return;
     }
 
     this.opener.postMessage({
       action: 'SSO_PAGE_LOADED'
     }, '*');
+
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
-  submit() {
-    if (this.form.invalid) { return; }
+  errorClass(fieldname: string) {
+    const field = this.form.get(fieldname);
+    return {
+      ['invalid']: field.invalid && (field.touched || this.formSubmitted)
+    };
+  }
 
-    this.http.post('user/login', this.form.value).subscribe( x => {
-      this.opener.postMessage({
-        action: 'LOGIN',
-        data: x
-      }, '*');
-      window.close();
+  submit() {
+    this.formSubmitted = true;
+    if (this.form.invalid) {
+      this.jkAlert.error('Please enter valid Email Address and Password');
+      return;
+    }
+
+    this.http.post('user/login', this.form.value).subscribe( (x: any) => {
+
+      if (x.statusCode !== 200) {
+        this.jkAlert.error(x.message);
+        return;
+      }
+
+      this.jkAlert.success(x.message);
+      setTimeout( () => {
+        this.opener.postMessage({
+          action: 'LOGIN',
+          data: x
+        }, '*');
+        window.close();
+      }, 2000);
     });
   }
 
@@ -75,9 +99,6 @@ export class LoginComponent implements OnInit {
 
   @HostListener('window:message', ['$event'])
   onMessage(event) {
-    // console.log(event.data.data);
-    // alert(JSON.stringify(event.data));
-    // console.log('(B)', event);
     if (event.data.action === 'SUBMIT_APP_ID') {
       this.loadApplicationDetails(event.data.data);
     }
@@ -86,13 +107,6 @@ export class LoginComponent implements OnInit {
 
 /**
  * TODO:
- * 
- * Login failed on SSO, dont send message if login failed
- * login field msg ui
- * button hover color
- * form validation
- * 
- * Login success notification before posting message.
  * 
  * 
  * FUTURE FEATURE
