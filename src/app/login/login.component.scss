@@ -1,0 +1,83 @@
+.container{
+    height: 100vh;
+    display: flex;
+    background: #eee;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--gradient1);  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--gradient2), var(--gradient1));  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, var(--gradient2), var(--gradient1)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.login{
+    background: #fff;
+    box-shadow: 0px 5px 12px -5px #333;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 40rem;
+    height: 32rem;
+
+    .brand{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo{
+            width: 8rem;
+        }
+
+        .name{
+            text-transform: capitalize;
+            color: var(--theme);
+            font-size: 3.5rem;
+            font-weight: 300;
+        }
+    }
+
+    form{
+        padding-top: 1rem;
+        > * {
+            margin-bottom: 1rem;
+        }
+
+        input{
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 4rem;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        button{
+            width: 100%;
+            border: none;
+            background: var(--secondaryColor);
+            color: #fff;
+            padding: 1.25rem;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    }
+
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        font-size: 1.2rem;
+
+        a{
+            color: var(--theme);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}

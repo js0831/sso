@@ -1,0 +1,20 @@
+<div *ngIf="!directAccess" class="container" #loginContainer>
+
+    <div class="login" >
+        <div class="brand">
+            <img class="logo" src="http://127.0.0.1:5500/logo.svg" alt="{{application?.name}}">
+            <h1 class="name">{{application?.name}}</h1>
+        </div>
+    
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <input formControlName="email" type="text" placeholder="Email">
+            <input formControlName="password" type="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    
+        <div class="links">
+            <a>Forgot password?</a>
+            <label>Dont have an Account? <a>Sign up</a></label>
+        </div>        
+    </div>
+</div>
