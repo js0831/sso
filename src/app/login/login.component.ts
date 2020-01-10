@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
     if (!this.opener) {
       this.directAccess = true;
-      this.jkAlert.error('Cannot access Login Page direcly');
+      this.jkAlert.error('Access forbidden!');
       return;
     }
 
@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: ['', [Validators.required]],
+      password: ['', Validators.required],
+      application: ['', Validators.required]
     });
   }
 
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
   submit() {
     this.formSubmitted = true;
     if (this.form.invalid) {
-      this.jkAlert.error('Please enter valid Email Address and Password');
+      this.jkAlert.error('Please enter valid Username and Password');
       return;
     }
 
@@ -85,6 +86,7 @@ export class LoginComponent implements OnInit {
   }
 
   loadApplicationDetails(id: string) {
+    this.form.get('application').patchValue(id);
     this.http.get(`application/${id}`).subscribe( (x: any) => {
       this.setStyleProperties(x.data);
       this.application = x.data;
