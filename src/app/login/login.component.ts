@@ -77,8 +77,9 @@ export class LoginComponent implements OnInit {
           action: 'LOGIN',
           data: x
         }, '*');
+        this.opener.focus();
         window.close();
-      }, 2000);
+      }, 1000);
     });
   }
 

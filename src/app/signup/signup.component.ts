@@ -61,8 +61,9 @@ export class SignupComponent implements OnInit {
         this.jkAlert.error(x.message);
       } else {
         this.form.reset();
-        this.jkAlert.success(x.message);
-        this.close();
+        this.jkAlert.success(x.message).then( () => {
+          this.close();
+        });
       }
     });
   }
