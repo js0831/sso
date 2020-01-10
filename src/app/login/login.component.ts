@@ -2,6 +2,8 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { JkAlertService } from 'jk-alert';
+import { map } from 'rxjs/operators';
+import { ApplicationInterface } from './application.interface';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +13,12 @@ import { JkAlertService } from 'jk-alert';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  formSubmitted = false;
-  application: {
-    name: string,
-    url: string,
-    logo?: string,
-    theme: string
-  };
+  application: ApplicationInterface;
   opener: any;
   directAccess = false;
   @ViewChild('loginContainer', {static: false}) loginContainer: ElementRef;
   private styleProperties = ['--theme', '--secondaryColor', '--gradient1', '--gradient2'];
+  isSignUp = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,12 +53,12 @@ export class LoginComponent implements OnInit {
   errorClass(fieldname: string) {
     const field = this.form.get(fieldname);
     return {
-      ['invalid']: field.invalid && (field.touched || this.formSubmitted)
+      ['invalid']: field.invalid && (field.touched)
     };
   }
 
   submit() {
-    this.formSubmitted = true;
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       this.jkAlert.error('Please enter valid Username and Password');
       return;
@@ -87,8 +84,15 @@ export class LoginComponent implements OnInit {
 
   loadApplicationDetails(id: string) {
     this.form.get('application').patchValue(id);
-    this.http.get(`application/${id}`).subscribe( (x: any) => {
+    this.http.get(`application/${id}`)
+    .pipe(
+      map( res => {
+        return res;
+      })
+    )
+    .subscribe( (x: any) => {
       this.setStyleProperties(x.data);
+      x.data.id = id;
       this.application = x.data;
     });
   }

@@ -1,0 +1,28 @@
+<div>
+    <div class="header">
+        <h1>
+            {{application?.name}} Sign up
+        </h1>
+        <img [src]="application?.logo" alt="">     
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <input type="hidden" formControlName="application">
+        <div class="row">
+            <input formControlName="firstname" type="text" [ngClass]="errorClass('firstname')" placeholder="First Name" maxlength="25">
+            <input formControlName="lastname" type="text" [ngClass]="errorClass('lastname')" placeholder="Last Name" maxlength="25">
+        </div>
+        <input formControlName="email" type="text" [ngClass]="errorClass('email')" placeholder="Email" maxlength="50">
+        
+        <input formControlName="username" type="text" [ngClass]="errorClass('username')" placeholder="Username" maxlength="40">
+        <div class="row">
+            <input formControlName="password" type="text" [ngClass]="errorClass('password')" placeholder="Password" maxlength="50">                        
+            <input formControlName="retype_password" type="text" [ngClass]="errorClass('retype_password')" placeholder="Re-type Password" maxlength="50">
+        </div>
+        <br>
+        <div class="row">
+            <input type="button" value="CANCEL" (click)="close()">                        
+            <input type="submit" value="SUBMIT">
+        </div>
+    </form>
+</div>

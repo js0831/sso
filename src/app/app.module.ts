@@ -8,6 +8,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { JkWaitModule } from 'jk-wait';
 import { JkAlertModule } from 'jk-alert';
+import { SignupModule } from './signup/signup.module';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { JkAlertModule } from 'jk-alert';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    SignupModule,
     JkWaitModule,
     JkAlertModule
   ],
@@ -25,7 +28,8 @@ import { JkAlertModule } from 'jk-alert';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    }
+    },
+    TitleCasePipe
   ],
   bootstrap: [AppComponent]
 })

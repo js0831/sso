@@ -50,9 +50,11 @@ $test: red;
             height: 4rem;
             width: 100%;
             padding: 1rem;
+            transition: all .25s ease;
 
             &.invalid{
-                background: rgba(255, 0, 0, 0.15);
+                background: rgba(255, 0, 0, 0.1);
+                border-color: rgba(185, 59, 59, 0.2);
             }
         }
 

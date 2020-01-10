@@ -15,7 +15,13 @@
     
         <div class="links">
             <a>Forgot password?</a>
-            <label>Dont have an Account? <a>Sign up</a></label>
+            <label>Dont have an Account? <a (click)="isSignUp = true">Sign up</a></label>
         </div>        
     </div>
 </div>
+
+<app-signup 
+    (done)="isSignUp = false"
+    *ngIf="application && isSignUp" 
+    [application]="application"
+></app-signup>
