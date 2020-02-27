@@ -1,27 +1,27 @@
 <div *ngIf="!directAccess" class="container" #loginContainer>
 
-    <div class="login" >
+    <div class="login" *ngIf="application">
         <div class="brand">
             <img class="logo" [src]="application?.logo" alt="{{application?.name}}">
             <h1 class="name">{{application?.name}}</h1>
         </div>
-    
+
         <form [formGroup]="form" (ngSubmit)="submit()">
             <input formControlName="username" type="text" [ngClass]="errorClass('username')" placeholder="Username">
             <input formControlName="password" type="password" [ngClass]="errorClass('password')" placeholder="Password">
             <input type="hidden" formControlName="application">
             <button type="submit">Login</button>
         </form>
-    
+
         <div class="links">
             <a>Forgot password?</a>
             <label>Dont have an Account? <a (click)="isSignUp = true">Sign up</a></label>
-        </div>        
+        </div>
     </div>
 </div>
 
-<app-signup 
+<app-signup
     (done)="isSignUp = false"
-    *ngIf="application && isSignUp" 
+    *ngIf="application && isSignUp"
     [application]="application"
 ></app-signup>
