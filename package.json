@@ -19,8 +19,8 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "jk-alert": "0.0.4",
-    "jk-wait": "0.0.1",
+    "jk-alert": "1.0.0",
+    "jk-wait": "1.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

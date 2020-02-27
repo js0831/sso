@@ -20,7 +20,9 @@ import { TitleCasePipe } from '@angular/common';
     AppRoutingModule,
     LoginModule,
     SignupModule,
-    JkWaitModule,
+    JkWaitModule.forRoot({
+      type: 'SPINNER'
+    }),
     JkAlertModule
   ],
   providers: [
